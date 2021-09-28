@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 
 import { EmployeeDialogboxComponent } from '../employee-dialogbox/employee-dialogbox.component';
+import { EmployeeDataService } from '../employee-service.service';
 import { EmployeeDetail } from '../Models/employee-detail';
 import { NewEmployeeForm } from '../Models/formdeclaration';
 
@@ -52,12 +53,27 @@ export class NewEmployeeComponent implements OnInit {
     'salary',
     'action',
   ];
-  dataSource = Employee_List;
+  dataSource: EmployeeDetail[] = [];
   addNewEmployee: EmployeeDetail;
   addRowDialog: MatDialogRef<EmployeeDialogboxComponent>;
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private employeeservice: EmployeeDataService
+  ) {
+    const savedEmployees = this.employeeservice.getEmployees();
+    if (savedEmployees.length > 0) {
+      this.dataSource = savedEmployees;
+    } else {
+      this.dataSource = Employee_List;
+      this.saveToLocalStorage();
+    }
+  }
 
   ngOnInit(): void {}
+
+  saveToLocalStorage() {
+    this.employeeservice.save(this.dataSource);
+  }
   openAddDialog(action, obj) {
     obj.action = action;
     this.addRowDialog = this.dialog.open(EmployeeDialogboxComponent, {
@@ -70,6 +86,8 @@ export class NewEmployeeComponent implements OnInit {
       } else if (result.event == 'Edit') {
         this.editedRow(result.data);
       }
+
+      this.saveToLocalStorage();
     });
   }
   addNewRow(result) {
@@ -82,7 +100,7 @@ export class NewEmployeeComponent implements OnInit {
     this.dataSource = this.dataSource.filter((value, key) => {
       if (value.Id == result.Id) {
         value.FirstName = result.FirstName;
-        value.LasttName = result.LasttName;
+        value.LasttName = result.LastName;
         value.Age = result.Age;
         value.Salary = result.Salary;
       }
@@ -95,5 +113,7 @@ export class NewEmployeeComponent implements OnInit {
     const deleteDataSource = [...this.dataSource];
     deleteDataSource.splice(id, 1);
     this.dataSource = deleteDataSource;
+
+    this.saveToLocalStorage();
   }
 }

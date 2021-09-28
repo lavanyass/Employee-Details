@@ -46,7 +46,6 @@ export class EmployeeDialogboxComponent implements OnInit {
   ngOnInit(): void {}
   getEmployee() {
     this.newEmployee = this.employeeForm.getRawValue() as NewEmployeeForm;
-    this.newEmployeeValue.emit(this.newEmployee);
     this.dialogRef.close({ event: this.action, data: this.newEmployee });
     console.log(this.newEmployee);
   }
