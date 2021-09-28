@@ -1,0 +1,39 @@
+<div class="display">
+  <h2>Employee Details</h2>
+</div>
+<div>
+  <table class="table" *ngIf="employeeList.length">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employeeDetail of employeeList">
+        <td>{{ employeeDetail.Id }}</td>
+        <td>{{ employeeDetail.FirstName }}</td>
+        <td>{{ employeeDetail.LasttName }}</td>
+        <td>{{ employeeDetail.Age }}</td>
+        <td>{{ employeeDetail.Salary }}</td>
+      </tr>
+
+      <tr *ngFor="let newRow of addRowData" [class.hidden]="!showRow">
+        <td>{{ newRow.Id }}</td>
+        <td>{{ newRow.FirstName }}</td>
+        <td>{{ newRow.LasttName }}</td>
+        <td>{{ newRow.Age }}</td>
+        <td>{{ newRow.Salary }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="button-align">
+  <button mat-raised-button color="primary" (click)="add()">Add</button>
+  <button mat-raised-button color="primary">Remove</button>
+  <button mat-raised-button color="primary">Update</button>
+</div>

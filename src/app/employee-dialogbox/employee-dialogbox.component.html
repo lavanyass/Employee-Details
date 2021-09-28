@@ -1,0 +1,37 @@
+<h1>New Employee</h1>
+<form [formGroup]="employeeForm" (submit)="getEmployee()">
+  <mat-dialog-content>
+    <mat-form-field>
+      Id:<input matInput [formControlName]="formKeys.ID" placeholder=" Name" />
+    </mat-form-field>
+    <mat-form-field>
+      First Name:<input
+        matInput
+        [formControlName]="formKeys.FIRSTNAME"
+        placeholder=" First Name"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      Last Name:<input
+        matInput
+        [formControlName]="formKeys.LASTNAME"
+        placeholder="Last Name"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      Age:<input matInput [formControlName]="formKeys.AGE" placeholder="Age" />
+    </mat-form-field>
+    <mat-form-field>
+      Salary:<input
+        matInput
+        [formControlName]="formKeys.SALARY"
+        placeholder="Salary"
+      />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button type="submit">{{ action }}</button>
+    <button mat-button (click)="cancelDialog()" type="button">Cancel</button>
+  </mat-dialog-actions>
+</form>
