@@ -36,6 +36,10 @@ export class EmployeeDialogboxComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Data
   ) {
     this.tabel_data = { ...data };
+
+    if (this.employeeForm) {
+      this.employeeForm.patchValue(this.tabel_data);
+    }
     this.action = this.tabel_data.action;
   }
 

@@ -80,11 +80,11 @@ export class NewEmployeeComponent implements OnInit {
   }
   editedRow(result) {
     this.dataSource = this.dataSource.filter((value, key) => {
-      if (value.Id == result.id) {
-        value.FirstName = result.firstName;
-        value.LasttName = result.lasttName;
-        value.Age = result.age;
-        value.Salary = result.salary;
+      if (value.Id == result.Id) {
+        value.FirstName = result.FirstName;
+        value.LasttName = result.LasttName;
+        value.Age = result.Age;
+        value.Salary = result.Salary;
       }
       return true;
     });
